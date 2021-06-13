@@ -1,0 +1,19 @@
+in vec2 newTexture;
+in vec3 fragNormal;
+
+out vec4 out_color;
+uniform sampler2D samplerTexture;
+
+void main()
+{
+    vec3 ambientLightIntensity = vec3(0.2f, 0.2f, 0.4f); //Grundbeleuchtung in rgb
+    vec3 sunLightIntensity = vec3(1.9f, 0.9f, 0.9f); //Sonnenlicht in rgb
+    vec3 sunLightDirection = normalize(vec3(10.0f, 10.0f, 4.0f)); // Lichtrichtung
+
+    vec4 texel = texture(samplerTexture, newTexture);
+    // lambert_beleuchtungsmodell für diffuse Lichtwirkung
+    float diffuse = 0.9;
+    vec3 lightIntensity = ambientLightIntensity +
+                diffuse*sunLightIntensity * max(dot(fragNormal, sunLightDirection),0.0f);
+    out_color = vec4(texel.rgb * lightIntensity, texel.a);
+}

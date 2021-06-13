@@ -1,0 +1,32 @@
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 textureCoords;
+layout(location = 2) in vec3 vertNormal;
+
+uniform mat4 transform;
+
+uniform mat4 view;
+uniform mat4 model;
+uniform mat4 projection;
+
+uniform mat4 light;
+
+uniform vec3 sunLightDirection;
+uniform vec3 ambientLightIntensity;
+uniform vec3 sunLightIntensity;
+
+out vec2 newTexture;
+out vec3 fragNormal;
+
+out vec3 newSunLightDirection;
+out vec3 newAmbientLightIntensity;
+out vec3 newSunLightIntensity;
+
+void main()
+{
+    fragNormal = (light * vec4(vertNormal, 0.0f)).xyz;
+    gl_Position = projection * view * model * transform * vec4(position, 1.0f);
+    newTexture = textureCoords;
+    newSunLightDirection = sunLightDirection;
+    newAmbientLightIntensity = ambientLightIntensity;
+    newSunLightIntensity = sunLightIntensity;
+}
