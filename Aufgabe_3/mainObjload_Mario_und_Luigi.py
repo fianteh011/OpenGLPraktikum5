@@ -16,11 +16,11 @@ from PIL import Image
 
 WIDTH, HEIGHT = 800, 800
 left, right, forward, backward, A_LEFT, D_RIGHT = False, False, False, False, False, False
-xrot, yrot = False, False
+xrot, yrot, zrot = False, False, False
 
 
 def key_input_clb(window, key, scancode, action, mode):
-    global left, right, forward, backward, A_LEFT, D_RIGHT, xrot, yrot
+    global left, right, forward, backward, A_LEFT, D_RIGHT, xrot, yrot, zrot
     if key == glfw.KEY_ESCAPE and action == glfw.PRESS:
         glfw.set_window_should_close(window, True)
 
@@ -77,8 +77,16 @@ def key_input_clb(window, key, scancode, action, mode):
         yrot = True
         print("PRESSED Taste <-")
         ### Beim Loslassen der linken Pfeiltaste soll die Drehung des Würfels gestoppt werden.
-    elif key == glfw.KEY_UP and action == glfw.RELEASE:
+    elif key == glfw.KEY_DOWN and action == glfw.RELEASE:
         yrot = False
+        # print("RELEASED Taste <-")
+
+    if key == glfw.KEY_U and action == glfw.PRESS:
+        zrot = True
+        print("PRESSED Taste <-")
+        ### Beim Loslassen der linken Pfeiltaste soll die Drehung des Würfels gestoppt werden.
+    elif key == glfw.KEY_U and action == glfw.RELEASE:
+        zrot = False
         # print("RELEASED Taste <-")
 
 
@@ -321,9 +329,11 @@ while not glfw.window_should_close(window):
     elif left:
         model_mario = Matrix.multiply(Matrix.makeTranslation(-0.001, 0, 0), model_mario)
     elif xrot:
-        model_mario = Matrix.multiply(Matrix.makeRotationX(0.0002), model_mario)
+        model_mario = Matrix.multiply(Matrix.makeRotationX(0.002), model_mario)
     elif yrot:
-        model_mario = Matrix.multiply(Matrix.makeRotationY(0.0002), model_mario)
+        model_mario = Matrix.multiply(Matrix.makeRotationY(0.002), model_mario)
+    elif zrot:
+        model_mario = Matrix.multiply(Matrix.makeRotationZ(0.002), model_mario)
 
     glDrawArrays(GL_TRIANGLES, 0, len(object_indices2))
 

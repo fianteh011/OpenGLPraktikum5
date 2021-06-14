@@ -15,7 +15,7 @@ out vec3 fragNormal;
 
 void main()
 {
-    fragNormal = (light * vec4(vertNormal, 0.0f)).xyz;
+    fragNormal = normalize((model * transform * vec4(vertNormal, 0.0f)).xyz);
     gl_Position = projection * view * model * transform * vec4(position, 1.0f);
     newTexture = textureCoords;
 }

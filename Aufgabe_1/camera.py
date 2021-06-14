@@ -4,10 +4,13 @@ from math import sin, cos, radians
 class Camera:
     def __init__(self):
         self.camera_pos = Matrix.Vec3(0.0, 4.0, 3.0)
-        self.camera_front = Matrix.Vec3(0.0, 0.0, -1.0)
+        self.camera_front = Matrix.Vec3(0.0, 0.0, -1.0) # Position der Lookat-Rcihtung
         self.camera_up = Matrix.Vec3(0.0, 1.0, 0.0)
         self.camera_right = Matrix.Vec3(1.0, 0.0, 0.0)
+        # redundant -> über Basisvektor fürs Kamera-KO System ist schon
+        # angegebn => muss gar nicht berechnert werden
 
+        # Drehbewegung der Kamera werden voreingestellt
         self.mouse_sensitivity = 0.01
         self.jaw = -90
         self.pitch = 0
